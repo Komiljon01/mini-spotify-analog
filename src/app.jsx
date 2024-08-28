@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Player from "./components/player";
 import Song from "./components/song";
 import "./sass/app.scss";
-import data from "./util";
+import data from "./data";
 import Library from "./components/library";
 import Navbar from "./components/navbar";
 
@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${libraryStatus && "library-active"}`}>
       <Navbar
         setLibraryStatus={setLibraryStatus}
         libraryStatus={libraryStatus}
@@ -33,12 +33,15 @@ function App() {
       <Song currentSong={currentSong} />
       <Player
         currentSong={currentSong}
+        setCurrentSong={setCurrentSong}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
         audioRef={audioRef}
         timeUpdateHandler={timeUpdateHandler}
         setSongInfo={setSongInfo}
         songInfo={songInfo}
+        songs={songs}
+        setSongs={setSongs}
       />
       <Library
         songs={songs}

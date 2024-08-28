@@ -4,6 +4,12 @@ nav {
   justify-content: space-around;
   align-items: center;
 
+  h1 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
   button {
     border: 2px solid #bcbcbc;
     background-color: transparent;
@@ -16,6 +22,14 @@ nav {
     &:hover {
       background-color: #444;
       color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  nav {
+    button {
+      z-index: 10;
     }
   }
 }

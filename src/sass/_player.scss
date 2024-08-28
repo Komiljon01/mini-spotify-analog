@@ -15,6 +15,7 @@
   input {
     width: 100%;
     padding: 1rem 0;
+    cursor: pointer;
   }
 
   p {
@@ -32,5 +33,15 @@
   svg {
     cursor: pointer;
     font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .time-control {
+    width: 95%;
+  }
+
+  .player-control {
+    width: 55%;
   }
 }

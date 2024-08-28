@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { FaBackwardStep, FaForwardStep } from "react-icons/fa6";
+import { playSong } from "../util";
 
 function Player({
+  setCurrentSong,
   currentSong,
   isPlaying,
   setIsPlaying,
@@ -9,7 +12,21 @@ function Player({
   timeUpdateHandler,
   songInfo,
   setSongInfo,
+  songs,
+  setSongs,
 }) {
+  useEffect(() => {
+    const newSongs = songs.map((music) => {
+      if (music.id === currentSong.id) {
+        return { ...music, active: true };
+      } else {
+        return { ...music, active: false };
+      }
+    });
+
+    setSongs(newSongs);
+  }, [currentSong]);
+
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -18,6 +35,24 @@ function Player({
       audioRef.current.play();
       setIsPlaying(!isPlaying);
     }
+  };
+
+  const skipTrackHandler = (direction) => {
+    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+
+    if (direction === "skip-forward") {
+      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    }
+
+    if (direction === "skip-back") {
+      if ((currentIndex - 1) % songs.length === -1) {
+        setCurrentSong(songs[songs.length - 1]);
+      } else {
+        setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+      }
+    }
+
+    playSong(isPlaying, audioRef);
   };
 
   const getTime = (time) => {
@@ -42,10 +77,13 @@ function Player({
           value={songInfo.currentTime}
           onChange={dragHandler}
         />
-        <p>{getTime(songInfo.duration)}</p>
+        <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
       </div>
       <div className="player-control">
-        <FaBackwardStep className="skip-back" />
+        <FaBackwardStep
+          onClick={() => skipTrackHandler("skip-back")}
+          className="skip-back"
+        />
 
         {isPlaying ? (
           <FaPause className="play" onClick={playSongHandler} />
@@ -53,7 +91,10 @@ function Player({
           <FaPlay className="play" onClick={playSongHandler} />
         )}
 
-        <FaForwardStep className="skip-forward" />
+        <FaForwardStep
+          onClick={() => skipTrackHandler("skip-forward")}
+          className="skip-forward"
+        />
       </div>
       <audio
         ref={audioRef}

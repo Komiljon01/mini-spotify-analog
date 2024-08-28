@@ -14,6 +14,14 @@ h3 {
   color: rgb(54, 54, 54);
 }
 
+.app {
+  transition: 0.25s all linear;
+}
+
+.library-active {
+  margin-left: 30%;
+}
+
 @import "./navbar.scss";
 @import "./player.scss";
 @import "./song.scss";
