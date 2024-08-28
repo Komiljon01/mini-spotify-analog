@@ -1,10 +1,15 @@
-import { useRef, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { FaBackwardStep, FaForwardStep } from "react-icons/fa6";
 
-function Player({ currentSong, isPlaying, setIsPlaying }) {
-  const audioRef = useRef(null);
-
+function Player({
+  currentSong,
+  isPlaying,
+  setIsPlaying,
+  audioRef,
+  timeUpdateHandler,
+  songInfo,
+  setSongInfo,
+}) {
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -13,18 +18,6 @@ function Player({ currentSong, isPlaying, setIsPlaying }) {
       audioRef.current.play();
       setIsPlaying(!isPlaying);
     }
-  };
-
-  // State
-  const [songInfo, setSongInfo] = useState({
-    currentTime: 0,
-    duration: 0,
-  });
-
-  const timeUpdateHandler = (e) => {
-    const currentTime = e.target.currentTime;
-    const duration = e.target.duration;
-    setSongInfo({ ...songInfo, currentTime, duration });
   };
 
   const getTime = (time) => {
@@ -45,7 +38,7 @@ function Player({ currentSong, isPlaying, setIsPlaying }) {
         <input
           type="range"
           min={0}
-          max={songInfo.duration}
+          max={songInfo.duration || 0}
           value={songInfo.currentTime}
           onChange={dragHandler}
         />

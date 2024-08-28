@@ -21,6 +21,9 @@
   width: 20rem;
   overflow-y: scroll;
   box-shadow: 2px 2px 40px #c7c7c7;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.3s linear;
 
   h2 {
     padding: 2rem;
@@ -53,4 +56,13 @@
       font-size: 0.7rem;
     }
   }
+}
+
+.selected {
+  background-color: rgb(189, 176, 234);
+}
+
+.active-library {
+  transform: translateX(0%);
+  opacity: 1;
 }

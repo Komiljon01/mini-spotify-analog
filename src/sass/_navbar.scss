@@ -1,0 +1,21 @@
+nav {
+  min-height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  button {
+    border: 2px solid #bcbcbc;
+    background-color: transparent;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      background-color: #444;
+      color: #fff;
+    }
+  }
+}
